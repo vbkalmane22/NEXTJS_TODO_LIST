@@ -1,4 +1,4 @@
-import Image from "next/image";
+
 import TodoList from "@/components/TodoList";
 import "./globals.css"
 
