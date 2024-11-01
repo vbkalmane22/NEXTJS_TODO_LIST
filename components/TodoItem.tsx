@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
-import { Check } from 'lucide-react'
+import React, { useState } from 'react';
+import { Check } from 'lucide-react';
 
 interface TodoItemProps {
-  todo: { id: number; text: string; done: boolean }
-  onToggle: () => void
+  todo: { id: number; text: string; done: boolean };
+  onToggle: () => void;
 }
 
 const TodoItem: React.FC<TodoItemProps> = ({ todo, onToggle }) => {
-  const [isHovered, setIsHovered] = useState(false)
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div
@@ -24,12 +24,12 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, onToggle }) => {
       </div>
       <span className={`text-lg transition-colors duration-200
         ${todo.done ? 'line-through text-gray-400' : 'text-gray-700'}
-        ${isHovered && !todo.done ? 'text-[#4361ee]' : ''}
+        ${isHovered && !todo.done ? 'text-blue-600 cursor-pointer' : ''}
       `}>
         {todo.text}
       </span>
     </div>
-  )
+  );
 }
 
-export default TodoItem
+export default TodoItem;

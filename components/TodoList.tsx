@@ -21,7 +21,16 @@ const TodoList: React.FC = () => {
   ])
 
   const addTodo = (text: string) => {
+    
+    if(text==='')
+    {
+      alert("Empty strings are not allowed");
+    }
+    else{
+
+    
     setTodos([...todos, { id: Date.now(), text, done: false }])
+    }
   }
 
   const toggleTodo = (id: number) => {
