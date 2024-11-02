@@ -23,10 +23,11 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, onToggle }) => {
         {todo.done && <Check className="w-3 h-3 text-white" />}
       </div>
       <span className={`text-lg transition-colors duration-200
-        ${todo.done ? 'line-through text-gray-400' : 'text-gray-700'}
-        ${isHovered && !todo.done ? 'text-blue-600 cursor-pointer' : ''}
+        ${todo.done ? 'line-through text-gray-400' : 'text-[#1a237e]'}
+        ${!todo.done && isHovered ? 'text-[#4361ee] cursor-pointer' : ''}
       `}>
         {todo.text}
+       
       </span>
     </div>
   );
