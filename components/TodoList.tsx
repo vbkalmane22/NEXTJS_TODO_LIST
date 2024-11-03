@@ -8,6 +8,8 @@ import TodoFooter from "./TodoFooter";
 import { Sun, Moon } from "lucide-react";
 import { SortType } from "@/lib/types";
 import { Todo } from "@/lib/types";
+import TodoTable from "./TodoItem";
+import '../app/globals.css'
 
 const TodoList: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -24,7 +26,15 @@ const TodoList: React.FC = () => {
       )
     );
   };
+  const deleteTodo = (id: number) => {
+    setTodos(todos.filter(todo => todo.id !== id))
+  }
 
+  const editTodo = (id: number, newText: string, newCategory: string) => {
+    setTodos(todos.map(todo =>
+      todo.id === id ? { ...todo, text: newText, category: newCategory } : todo
+    ))
+  }
   const clearAll = () => {
     setTodos([]);
   };
@@ -81,14 +91,16 @@ const TodoList: React.FC = () => {
 
           <div className="flex-grow overflow-hidden flex flex-col mt-6">
             <div className="flex-grow overflow-y-auto space-y-6 pr-4">
-              {todos.map((todo) => (
-                <TodoItem
-                  key={todo.id}
-                  todo={todo}
-                  isDark={isDarkMode}
-                  onToggle={() => toggleTodo(todo.id)}
-                />
-              ))}
+              
+            <TodoTable
+              todos={todos}
+              onToggle={toggleTodo}
+              onDelete={deleteTodo}
+              onEdit={editTodo}
+              isDark={isDarkMode}
+            />
+              
+             
             </div>
           </div>
 
