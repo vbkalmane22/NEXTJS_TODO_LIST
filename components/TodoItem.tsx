@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import '../app/globals.css'
-import { Pencil, Trash2, Check, Briefcase, User, AlertTriangle, CheckCheck } from 'lucide-react'
+import { Pencil, Trash2, Check, Briefcase, User, AlertTriangle} from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   Select,
@@ -17,7 +17,7 @@ interface Todo {
   category: string
 }
 
-interface TodoTableProps {
+interface TodoItemProps {
   todos: Todo[]
   onToggle: (id: number) => void
   onDelete: (id: number) => void
@@ -25,7 +25,7 @@ interface TodoTableProps {
   isDark: boolean
 }
 
-const TodoTable: React.FC<TodoTableProps> = ({ todos, onToggle, onDelete, onEdit, isDark }) => {
+const TodoItem: React.FC<TodoItemProps> = ({ todos, onToggle, onDelete, onEdit, isDark }) => {
   const [editingId, setEditingId] = useState<number | null>(null)
   const [editText, setEditText] = useState('')
   const [editCategory, setEditCategory] = useState('')
@@ -165,4 +165,4 @@ const TodoTable: React.FC<TodoTableProps> = ({ todos, onToggle, onDelete, onEdit
   )
 }
 
-export default TodoTable
+export default TodoItem

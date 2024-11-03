@@ -3,13 +3,14 @@
 import React, { useState } from "react";
 import { Card } from "@/components/ui/card";
 import AddTodoForm from "./AddTodo";
-import TodoItem from "./TodoItem";
+
 import TodoFooter from "./TodoFooter";
 import { Sun, Moon } from "lucide-react";
 import { SortType } from "@/lib/types";
 import { Todo } from "@/lib/types";
-import TodoTable from "./TodoItem";
+
 import '../app/globals.css'
+import TodoItem from "./TodoItem";
 
 const TodoList: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -92,7 +93,7 @@ const TodoList: React.FC = () => {
           <div className="flex-grow overflow-hidden flex flex-col mt-6">
             <div className="flex-grow overflow-y-auto space-y-6 pr-4">
               
-            <TodoTable
+            <TodoItem
               todos={todos}
               onToggle={toggleTodo}
               onDelete={deleteTodo}
