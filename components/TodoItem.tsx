@@ -9,13 +9,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { Todo } from '@/lib/types'
 
-interface Todo {
-  id: number
-  text: string
-  done: boolean
-  category: string
-}
+
 
 interface TodoItemProps {
   todos: Todo[]
@@ -61,7 +57,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todos, onToggle, onDelete, onEdit, 
     }
 
     return (
-      <div className={` w-fit flex justify-center items-center gap-1 px-2 py-1 rounded-full ${categoryStyle}`}>
+      <div className={`w-fit flex justify-center items-center gap-1 px-2 py- rounded-full ${categoryStyle}`}>
         {IconComponent && <IconComponent className="w-4 h-4" />}
         <span className="text-sm font-medium">{category}</span>
       </div>
@@ -79,17 +75,10 @@ const TodoItem: React.FC<TodoItemProps> = ({ todos, onToggle, onDelete, onEdit, 
   return (
     <div className="overflow-x-auto">
       <table className={`w-full ${isDark ? 'text-gray-200' : 'text-gray-800'}`}>
-        {/* <thead>
-          <tr className={`${isDark ? 'bg-gray-700' : 'bg-gray-100'}`}>
-            <th className="px-4 py-2 text-left">Done</th>
-            <th className="px-4 py-2 text-left">Task</th>
-            <th className="px-4 py-2 text-left">Category</th>
-            <th className="px-4 py-2 text-left">Actions</th>
-          </tr>
-        </thead> */}
+      
         <tbody>
           {todos.map(todo => (
-            <tr key={todo.id} className={`border-b ${isDark ? 'border-gray-700' : 'border-gray-200'} ${todo.done ? 'line-through text-gray-500' : ''}`}>
+            <tr key={todo.id} className={`border-b ${isDark ? 'border-gray-700' : 'border-gray-200'} ${todo.done ? 'line-through text-gray-400' : ''}`}>
               <td className="px-4 py-2">
                 <div
                   onClick={() => onToggle(todo.id)}
@@ -108,7 +97,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todos, onToggle, onDelete, onEdit, 
                     className={`w-full p-1 ${isDark ? 'bg-gray-700 text-white' : 'bg-white text-black'} border rounded`}
                   />
                 ) : (
-                  <span className={`text-lg ${isDark ? 'text-gray-300' : 'text-[#1a237e]'}`}>
+                  <span className={`text-lg hover:text-blue-700 hover:cursor-pointer ${isDark ? 'text-gray-300' : 'text-[#1a237e]'} ${todo.done? 'text-gray-400':''}`}>
                     {todo.text}
                   </span>
                 )}
@@ -129,13 +118,13 @@ const TodoItem: React.FC<TodoItemProps> = ({ todos, onToggle, onDelete, onEdit, 
                   renderCategoryBadge(todo.category)
                 )}
               </td>
-              <td className="px-4 py-2 flex justify-center">
+              <td className="px-4 py-2 flex justify-end">
                 {editingId === todo.id ? (
                   <Button onClick={saveEdit} variant="outline" size="sm" className='text-lg font-bold flex'>
                     <Check/>
                   </Button>
                 ) : (
-                  <div className="flex space-x-2 justify-end">
+                  <div className="flex space-x-3 justify-end">
                    <Button 
                       onClick={() => startEdit(todo)} 
                       variant="outline" 
@@ -143,7 +132,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todos, onToggle, onDelete, onEdit, 
                       disabled={todo.done}
                       className={todo.done ? 'opacity-50 cursor-not-allowed' : ''}
                     >
-                      <Pencil className="w-4 h-4" />
+                      <Pencil className="w-4 h-4 text-green-400" />
                     </Button>
                     <Button 
                       onClick={() => onDelete(todo.id)} 
@@ -152,7 +141,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todos, onToggle, onDelete, onEdit, 
                       disabled={todo.done}
                       className={todo.done ? 'opacity-50 cursor-not-allowed' : ''}
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Trash2 className="w-4 h-4 text-red-400" />
                     </Button>
                   </div>
                 )}

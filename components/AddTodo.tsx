@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-
+import '../app/globals.css'
 interface AddTodoFormProps {
   isDark: boolean;
   onAdd: (text: string, category: string) => void;
@@ -17,8 +17,8 @@ interface AddTodoFormProps {
 const AddTodo: React.FC<AddTodoFormProps> = ({ onAdd, isDark }) => {
   const [newItem, setNewItem] = useState("");
   const [error, setError] = useState("");
-  const [category, setCategory] = useState("Work");
-
+  const [category, setCategory] = useState("Personal");
+  
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (newItem.trim() === "") {
@@ -27,6 +27,9 @@ const AddTodo: React.FC<AddTodoFormProps> = ({ onAdd, isDark }) => {
     }
     if (newItem.trim()) {
       onAdd(newItem.trim(), category);
+      const existingTodos = JSON.parse(localStorage.getItem("todos") || "[]");
+      const updatedTodos = [...existingTodos, { text: newItem.trim(), category }];
+      localStorage.setItem("todos", JSON.stringify(updatedTodos));
       setNewItem("");
       setError("");
     }
@@ -49,7 +52,7 @@ const AddTodo: React.FC<AddTodoFormProps> = ({ onAdd, isDark }) => {
           />
           <Select value={category} onValueChange={setCategory}>
             <SelectTrigger
-              className={` w-fit px-3 py-6 text-lg ${
+              className={`w-fit px-4 py-6 text-lg ${
                 isDark
                   ? "bg-gray-700 text-gray-200 border-gray-600"
                   : "bg-gray-100 text-black border-gray-300"

@@ -7,22 +7,24 @@ interface TodoFooterProps {
   onClearAll: () => void;
   onSort: (type: SortType) => void;
   currentSortType: SortType;
+  isDark:boolean;
 }
 const TodoFooter: React.FC<TodoFooterProps> = ({
   itemCount,
   onClearAll,
   onSort,
   currentSortType,
+  isDark
 }) => {
   return (
-    <div className="pt-6 border-t border-gray-200">
+    <div className={`pt-5 border-t ${isDark ? 'border-gray-600':'border-gray-300'}`}>
       <div className="flex justify-between items-center text-base">
         <span className="text-gray-400">{itemCount} items</span>
         <div className="space-x-4">
           <button
             onClick={() => onSort("alphabetical")}
             className={`text-gray-400 hover:text-gray-600 ${
-              currentSortType === "alphabetical" ? "font-bold" : ""
+              currentSortType === "alphabetical" ? "font-bold underline" : ""
             }`}
           >
             Sort A-Z
@@ -30,7 +32,7 @@ const TodoFooter: React.FC<TodoFooterProps> = ({
           <button
             onClick={() => onSort("status")}
             className={`text-gray-400 hover:text-gray-600 ${
-              currentSortType === "status" ? "font-bold" : ""
+              currentSortType === "status" ? "font-bold underline" : ""
             }`}
           >
             Sort by Status

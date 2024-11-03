@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import AddTodoForm from "./AddTodo";
 
@@ -16,10 +16,24 @@ const TodoList: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [sortType, setSortType] = useState<SortType>("alphabetical");
   const [isDarkMode, setIsDarkMode] = useState(false);
+
+    // Load todos from localStorage when the component mounts
+  useEffect(() => {
+    const storedTodos = JSON.parse(localStorage.getItem("todos") || "[]");
+    if (storedTodos.length > 0) {
+      setTodos(storedTodos);
+    }
+  }, []);
+
+  // Update localStorage whenever todos change
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
   const addTodo = (text: string, category: string) => {
     setTodos([...todos, { id: Date.now(), text, done: false, category }]);
   };
 
+  //function to toggle between "done" and "pending" state
   const toggleTodo = (id: number) => {
     setTodos(
       todos.map((todo) =>
@@ -27,18 +41,25 @@ const TodoList: React.FC = () => {
       )
     );
   };
+
+  //function to delete the todos
   const deleteTodo = (id: number) => {
     setTodos(todos.filter(todo => todo.id !== id))
   }
 
+  //function to edit the todos
   const editTodo = (id: number, newText: string, newCategory: string) => {
     setTodos(todos.map(todo =>
       todo.id === id ? { ...todo, text: newText, category: newCategory } : todo
     ))
   }
+
+  //Clears all the todos
   const clearAll = () => {
     setTodos([]);
   };
+
+  //Sorting based on alphabetical and status of the task
   const sortTodos = (type: SortType) => {
     setSortType(type);
     const sortedTodos = [...todos];
@@ -52,6 +73,8 @@ const TodoList: React.FC = () => {
     }
     setTodos(sortedTodos);
   };
+
+  //function to toggle between light and dark mode
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
   };
@@ -64,9 +87,9 @@ const TodoList: React.FC = () => {
       <Card
         className={`w-full max-w-4xl ${
           isDarkMode ? "bg-gray-800 border border-gray-800" : "bg-white"
-        } rounded-3xl shadow-lg h-screen max-h-[85vh] flex flex-col p-8`}
+        } rounded-3xl shadow-lg h-screen max-h-[90vh] flex flex-col p-8`}
       >
-        <div className="w-4/5 mx-auto flex flex-col h-full mt-8">
+        <div className="w-4/5 mx-auto flex flex-col h-full mt-8 max-h-[95%]">
           <div className="flex justify-between items-center mb-12">
             <h1
               className={`text-5xl font-bold ${
@@ -90,18 +113,15 @@ const TodoList: React.FC = () => {
           </div>
           <AddTodoForm onAdd={addTodo} isDark={isDarkMode} />
 
-          <div className="flex-grow overflow-hidden flex flex-col mt-6">
-            <div className="flex-grow overflow-y-auto space-y-6 pr-4">
-              
-            <TodoItem
-              todos={todos}
-              onToggle={toggleTodo}
-              onDelete={deleteTodo}
-              onEdit={editTodo}
-              isDark={isDarkMode}
-            />
-              
-             
+          <div className="flex-grow overflow-hidden flex flex-col mt-3 mb-2 max-h-[55%]">
+            <div className="flex-grow overflow-y-auto space-y-5 pr-4">
+              <TodoItem
+                todos={todos}
+                onToggle={toggleTodo}
+                onDelete={deleteTodo}
+                onEdit={editTodo}
+                isDark={isDarkMode}
+              />
             </div>
           </div>
 
@@ -110,6 +130,7 @@ const TodoList: React.FC = () => {
               itemCount={todos.length}
               onClearAll={clearAll}
               onSort={sortTodos}
+              isDark={isDarkMode}
               currentSortType={sortType}
             />
           </div>
