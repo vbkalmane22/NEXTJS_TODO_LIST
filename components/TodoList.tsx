@@ -85,7 +85,7 @@ const TodoList: React.FC = () => {
       }`}
     >
       <Card
-        className={`w-full max-w-4xl ${
+        className={`w-full max-w-5xl ${
           isDarkMode ? "bg-gray-800 border border-gray-800" : "bg-white"
         } rounded-3xl shadow-lg h-screen max-h-[90vh] flex flex-col p-8`}
       >
