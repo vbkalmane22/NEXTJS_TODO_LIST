@@ -30,7 +30,7 @@ const TodoList: React.FC = () => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
   const addTodo = (text: string, category: string) => {
-    setTodos([...todos, { id: Date.now(), text, done: false, category }]);
+    setTodos([...todos, { id: Date.now(), text, done: false, category,date:new Date().toISOString().split('T')[0] }]);
   };
 
   //function to toggle between "done" and "pending" state

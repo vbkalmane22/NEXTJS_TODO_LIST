@@ -88,6 +88,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todos, onToggle, onDelete, onEdit, 
                   {todo.done && <Check className="w-3 h-3 text-white" />}
                 </div>
               </td>
+             
               <td className="px-4 py-2">
                 {editingId === todo.id ? (
                   <input
@@ -118,6 +119,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todos, onToggle, onDelete, onEdit, 
                   renderCategoryBadge(todo.category)
                 )}
               </td>
+              <td className='px-4 py-2'>{todo.date}</td>
               <td className="px-4 py-2 flex justify-end">
                 {editingId === todo.id ? (
                   <Button onClick={saveEdit} variant="outline" size="sm" className='text-lg font-bold flex'>
