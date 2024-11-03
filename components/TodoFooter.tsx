@@ -1,6 +1,6 @@
 import React from "react";
+import { SortType } from "@/lib/types";
 
-type SortType = "alphabetical" | "status";
 
 interface TodoFooterProps {
   itemCount: number;

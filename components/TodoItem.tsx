@@ -132,16 +132,15 @@ const TodoItem: React.FC<TodoItemProps> = ({ todos, onToggle, onDelete, onEdit, 
                       disabled={todo.done}
                       className={todo.done ? 'opacity-50 cursor-not-allowed' : ''}
                     >
-                      <Pencil className="w-4 h-4 text-green-400" />
+                      <Pencil className="w-4 h-4 text-green-600" />
                     </Button>
                     <Button 
                       onClick={() => onDelete(todo.id)} 
                       variant="outline" 
                       size="sm"
-                      disabled={todo.done}
-                      className={todo.done ? 'opacity-50 cursor-not-allowed' : ''}
+                      
                     >
-                      <Trash2 className="w-4 h-4 text-red-400" />
+                      <Trash2 className="w-4 h-4 text-red-600" />
                     </Button>
                   </div>
                 )}

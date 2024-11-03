@@ -1,4 +1,4 @@
-export type SortType = "alphabetical" | "status";
+export type SortType = "alphabetical" | "status"|"null";
 export type Todo = {
     id: number;
     text: string;

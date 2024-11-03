@@ -14,7 +14,7 @@ import TodoItem from "./TodoItem";
 
 const TodoList: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
-  const [sortType, setSortType] = useState<SortType>("alphabetical");
+  const [sortType, setSortType] = useState<SortType>("null");
   const [isDarkMode, setIsDarkMode] = useState(false);
 
     // Load todos from localStorage when the component mounts
