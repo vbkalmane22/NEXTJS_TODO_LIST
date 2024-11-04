@@ -74,84 +74,83 @@ const TodoItem: React.FC<TodoItemProps> = ({ todos, onToggle, onDelete, onEdit, 
 
   return (
     <div className="overflow-x-auto">
-      <table className={`w-full ${isDark ? 'text-gray-200' : 'text-gray-800'}`}>
-      
-        <tbody>
-          {todos.map(todo => (
-            <tr key={todo.id} className={`border-b ${isDark ? 'border-gray-700' : 'border-gray-200'} ${todo.done ? 'line-through text-gray-400' : ''}`}>
-              <td className="px-4 py-2">
-                <div
-                  onClick={() => onToggle(todo.id)}
-                  className={`w-5 h-5 rounded-full border-2 flex items-center justify-center cursor-pointer
-                    ${todo.done ? 'border-emerald-400 bg-emerald-400' : isDark ? 'border-gray-600' : 'border-gray-300'}`}
-                >
-                  {todo.done && <Check className="w-3 h-3 text-white" />}
-                </div>
-              </td>
-             
-              <td className="px-4 py-2">
-                {editingId === todo.id ? (
-                  <input
-                    type="text"
-                    value={editText}
-                    onChange={(e) => setEditText(e.target.value)}
-                    className={`w-full p-1 ${isDark ? 'bg-gray-700 text-white' : 'bg-white text-black'} border rounded`}
-                  />
-                ) : (
-                  <span className={`text-lg hover:text-blue-700 hover:cursor-pointer ${isDark ? 'text-gray-300' : 'text-[#1a237e]'} ${todo.done? 'text-gray-400':''}`}>
-                    {todo.text}
-                  </span>
-                )}
-              </td>
-              <td className="px-4 py-2">
-                {editingId === todo.id ? (
-                  <Select value={editCategory} onValueChange={setEditCategory}>
-                    <SelectTrigger className={`w-full ${isDark ? 'bg-gray-700 text-white' : 'bg-white text-black'}`}>
-                      <SelectValue placeholder="Category" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Work">Work</SelectItem>
-                      <SelectItem value="Personal">Personal</SelectItem>
-                      <SelectItem value="Urgent">Urgent</SelectItem>
-                    </SelectContent>
-                  </Select>
-                ) : (
-                  renderCategoryBadge(todo.category)
-                )}
-              </td>
-              <td className='px-4 py-2'>{todo.date}</td>
-              <td className="px-4 py-2 flex justify-end">
-                {editingId === todo.id ? (
-                  <Button onClick={saveEdit} variant="outline" size="sm" className='text-lg font-bold flex'>
-                    <Check/>
+    <table className={`w-full ${isDark ? 'text-gray-200' : 'text-gray-800'}`}>
+      <tbody>
+        {todos.map(todo => (
+          <tr key={todo.id} className={`border-b ${isDark ? 'border-gray-700' : 'border-gray-200'} ${todo.done ? 'line-through text-gray-400' : ''}`}>
+            <td className="px-2 sm:px-4 py-2">
+              <div
+                onClick={() => onToggle(todo.id)}
+                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center cursor-pointer
+                  ${todo.done ? 'border-emerald-400 bg-emerald-400' : isDark ? 'border-gray-600' : 'border-gray-300'}`}
+              >
+                {todo.done && <Check className="w-3 h-3 text-white" />}
+              </div>
+            </td>
+           
+            <td className="px-2 sm:px-4 py-2">
+              {editingId === todo.id ? (
+                <input
+                  type="text"
+                  value={editText}
+                  onChange={(e) => setEditText(e.target.value)}
+                  className={`w-full p-1 ${isDark ? 'bg-gray-700 text-white' : 'bg-white text-black'} border rounded`}
+                />
+              ) : (
+                <span className={`text-sm sm:text-lg hover:text-blue-700 hover:cursor-pointer ${isDark ? 'text-gray-300' : 'text-[#000000]'} ${todo.done? 'text-gray-400':''}`}>
+                  {todo.text}
+                </span>
+              )}
+            </td>
+            <td className="px-2 sm:px-4 py-2">
+              {editingId === todo.id ? (
+                <Select value={editCategory} onValueChange={setEditCategory}>
+                  <SelectTrigger className={`w-full ${isDark ? 'bg-gray-700 text-white' : 'bg-white text-black'}`}>
+                    <SelectValue placeholder="Category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Work">Work</SelectItem>
+                    <SelectItem value="Personal">Personal</SelectItem>
+                    <SelectItem value="Urgent">Urgent</SelectItem>
+                  </SelectContent>
+                </Select>
+              ) : (
+                renderCategoryBadge(todo.category)
+              )}
+            </td>
+            <td className='px-2 sm:px-4 py-2 hidden sm:table-cell'>{todo.date}</td>
+            <td className="px-2 sm:px-4 py-2 flex justify-end">
+              {editingId === todo.id ? (
+                <Button onClick={saveEdit} variant="outline" size="sm" className='text-lg font-bold flex'>
+                  <Check/>
+                </Button>
+              ) : (
+                <div className="flex space-x-2 sm:space-x-3 justify-end">
+                 <Button 
+                    onClick={() => startEdit(todo)} 
+                    variant="outline" 
+                    size="sm"
+                    disabled={todo.done}
+                    className={todo.done ? 'opacity-50 cursor-not-allowed' : ''}
+                  >
+                    <Pencil className="w-3 h-3 sm:w-4 sm:h-4 text-green-600" />
                   </Button>
-                ) : (
-                  <div className="flex space-x-3 justify-end">
-                   <Button 
-                      onClick={() => startEdit(todo)} 
-                      variant="outline" 
-                      size="sm"
-                      disabled={todo.done}
-                      className={todo.done ? 'opacity-50 cursor-not-allowed' : ''}
-                    >
-                      <Pencil className="w-4 h-4 text-green-600" />
-                    </Button>
-                    <Button 
-                      onClick={() => onDelete(todo.id)} 
-                      variant="outline" 
-                      size="sm"
-                      
-                    >
-                      <Trash2 className="w-4 h-4 text-red-600" />
-                    </Button>
-                  </div>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+                  <Button 
+                    onClick={() => onDelete(todo.id)} 
+                    variant="outline" 
+                    size="sm"
+                  >
+                    <Trash2 className="w-3 h-3 sm:w-4 sm:h-4 text-red-600" />
+                  </Button>
+                </div>
+              )}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
   )
 }
 
