@@ -77,7 +77,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todos, onToggle, onDelete, onEdit, 
     <table className={`w-full ${isDark ? 'text-gray-200' : 'text-gray-800'}`}>
       <tbody>
         {todos.map(todo => (
-          <tr key={todo.id} className={`border-b ${isDark ? 'border-gray-700' : 'border-gray-200'} ${todo.done ? 'line-through text-gray-400' : ''}`}>
+          <tr key={todo.id} className={`border-b ${isDark ? 'border-gray-700' : 'border-gray-200'} ${todo.done ? 'line-through text-gray-400' : ''} font-medium`}>
             <td className="px-2 sm:px-4 py-2">
               <div
                 onClick={() => onToggle(todo.id)}

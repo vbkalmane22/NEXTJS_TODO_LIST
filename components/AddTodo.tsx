@@ -41,7 +41,7 @@ const AddTodo: React.FC<AddTodoFormProps> = ({ onAdd, isDark }) => {
         <div
           className={`flex flex-1 border ${
             isDark ? "border-gray-600" : "border-gray-300"
-          } rounded-lg overflow-hidden justify-center items-center pr-1`}
+          } rounded-lg overflow-hidden justify-center items-center pr-1 font-medium`}
         >
           <input
             type="text"
